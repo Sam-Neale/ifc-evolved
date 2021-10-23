@@ -69,4 +69,4 @@ Almost all of the code is from Nicolas BARTHE-DEJEAN. I was unable to locate him
 
 **Projects that use IFC-Evolved**
 * IFFMC Reborn
-<p>Add yours by replying below</p>
+<p>Add yours by making an issue with the project tag</p>
