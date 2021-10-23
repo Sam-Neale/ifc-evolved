@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/sam-neale/ifc-evolved/issues"
   },
-  "homepage": "https://github.com/sam-neale/ifc-evolved"
+  "homepage": "https://github.com/sam-neale/ifc-evolved",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
 }
