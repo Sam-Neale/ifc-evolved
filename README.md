@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Logo|300x300, 50%](https://github.com/Sam-Neale/ifc-evolved/raw/main/media/images/ifcEvolved720.png)
+![Logo|200x200, 50%](https://github.com/Sam-Neale/ifc-evolved/raw/main/media/images/ifcEvolved720.png)
 <h1>IFC Evolved</h1>
 <a href="https://github.com/Sam-Neale/ifc-evolved">https://github.com/Sam-Neale/ifc-evolved/</a>
 </div>
