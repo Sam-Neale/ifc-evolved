@@ -1,0 +1,26 @@
+{
+  "name": "ifc",
+  "version": "1.1.2",
+  "description": "A Javascript client for Infinite Flight simulator API",
+  "main": "ifc.js",
+  "scripts": {
+    "test": "node tests/connection.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sam-neale/ifc-evolved.git"
+  },
+  "keywords": [
+    "api",
+    "infinite flight",
+    "flight",
+    "simulator",
+    "client"
+  ],
+  "author": "Nicolas BARTHE-DEJEAN & Sam Neale",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/sam-neale/ifc-evolved/issues"
+  },
+  "homepage": "https://github.com/sam-neale/ifc-evolved"
+}
