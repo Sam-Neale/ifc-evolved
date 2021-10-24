@@ -36,7 +36,8 @@ var IFC = {
     broadcastPort: 15000,
     serverPort: 0,
     discoverSocket: false,
-    clientSocket: false
+    clientSocket: false,
+    initData: null,
   },
 
   initSocketOnHostDiscovered: true,
@@ -117,13 +118,12 @@ var IFC = {
       var data = {};
       try {
         data = JSON.parse(IFC._ab2str(dataStr));
-        IFC.log()
         IFC.log(data);
+        IFC.infiniteFlight.initData = data;
       } catch(e) {
         IFC.log("Discover socket : parsing error");
       } 
       if (data.Addresses[1] && data.Port) {
-        successCallback();
         IFC.log("Host Discovered");
         IFC.isConnected = true;
         IFC.infiniteFlight.serverAddress = data.Addresses[1];
@@ -136,9 +136,6 @@ var IFC = {
       } else {
         console.log(data);
         IFC.onDataReceived(data);
-        if (IFC.isConnected == false) {
-          errorCallback();
-        }
       }
     });
 
@@ -167,13 +164,14 @@ var IFC = {
     IFC.infiniteFlight.clientSocket = new net.Socket();
     IFC.infiniteFlight.clientSocket.connect(port, host, function() {
     	IFC.log('Connected to IF server');
-      IFC.onSocketConnected();
+      IFC.onSocketConnected(IFC.infiniteFlight.initData);
     });
 
     IFC.infiniteFlight.clientSocket.on('data', function(data) {
     	IFC.log('Received: ' + data);
       try {
-        IFC.onDataReceived(JSON.parse(IFC._ab2str(data)));
+        let StringedData = (IFC._ab2str(data))
+        IFC.onDataReceived(JSON.parse(StringedData));
       } catch(e) {
         IFC.log(e);
       }
@@ -230,7 +228,39 @@ var IFC = {
 
   // ArrayBuffer to String
   _ab2str: function(buf) {
-    return String.fromCharCode.apply(null, new Uint8Array(buf));
+    function Utf8ArrayToStr(array) {
+      var out, i, len, c;
+      var char2, char3;
+
+      out = "";
+      len = array.length;
+      i = 0;
+      while (i < len) {
+        c = array[i++];
+        switch (c >> 4) {
+          case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+            // 0xxxxxxx
+            out += String.fromCharCode(c);
+            break;
+          case 12: case 13:
+            // 110x xxxx   10xx xxxx
+            char2 = array[i++];
+            out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+            break;
+          case 14:
+            // 1110 xxxx  10xx xxxx  10xx xxxx
+            char2 = array[i++];
+            char3 = array[i++];
+            out += String.fromCharCode(((c & 0x0F) << 12) |
+              ((char2 & 0x3F) << 6) |
+              ((char3 & 0x3F) << 0));
+            break;
+        }
+      }
+
+      return out;
+    }
+    return (Utf8ArrayToStr(buf));
   },
 
 
