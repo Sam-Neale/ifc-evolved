@@ -134,7 +134,6 @@ var IFC = {
           IFC.infiniteFlight.discoverSocket = false;
         });
       } else {
-        console.log(data);
         IFC.onDataReceived(data);
       }
     });
