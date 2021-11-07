@@ -51,7 +51,9 @@ var IFC = {
   onSocketConnected: function () { IFC.log("Connected"); },
   onSocketConnectionError: function() { IFC.log("Connection error"); },
   onHostDiscovered: function(host, port, callback) { IFC.log("Host Discovered"); },
-  onDataReceived: function(data) {},
+  onDataReceived: function(data) {
+    console.log(data)
+  },
   onHostSearchFailed: function() {},
 
   // SHORTCUTS FUNCTIONS //
