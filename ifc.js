@@ -169,7 +169,11 @@ var IFC = {
     IFC.infiniteFlight.clientSocket.on('data', function(data) {
     	IFC.log('Received: ' + data);
       try {
-        let StringedData = (IFC._ab2str(data))
+        let StringedData = (IFC._ab2str(data));
+        while (StringedData[0] != "{") {
+          StringedData = StringedData.slice(1, StringedData.length)
+        }
+
         IFC.onDataReceived(JSON.parse(StringedData));
       } catch(e) {
         IFC.log(e);
