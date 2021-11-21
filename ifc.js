@@ -210,8 +210,8 @@ var IFC = {
       for (var i = 0; i < jsonStr.length; i++) {
         data[i+4] = jsonStr.charCodeAt(i);
       }
-
-      var buffer = new Buffer(data);
+      
+      var buffer = Buffer.from(data);
       IFC.infiniteFlight.clientSocket.write(buffer);
 
     } catch(e) {
